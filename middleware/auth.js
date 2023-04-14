@@ -12,7 +12,7 @@ module.exports = function (req, res, next) {
 
   // Verify token
   try {
-    jwt.verify(token, confing.get("jwtSecret"), (error, decoded) => {
+    jwt.verify(token, config.get("jwtSecret"), (error, decoded) => {
       if (error) {
         res.status(401).json({ msg: "Token is not valid" });
       } else {
@@ -21,7 +21,7 @@ module.exports = function (req, res, next) {
       }
     });
   } catch (err) {
-    console.error("something wrong with auth middleware");
-    res.status(401).json({ msg: "Token is not valid" });
+    console.error(err.message);
+    res.status(500).json({ msg: "Server Error" });
   }
 };

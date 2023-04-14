@@ -10,7 +10,7 @@ const ProfileSchema = new mongoose.Schema({
     required: true,
   },
   year: {
-    type: int,
+    type: String,
   },
   college: {
     type: String,
