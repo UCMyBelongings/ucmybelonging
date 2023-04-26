@@ -22,7 +22,7 @@ const PostSchema = new mongoose.Schema({
   },
   found: {
     type: Boolean,
-    required: true,
+    default: false,
   },
   comment: [
     {
