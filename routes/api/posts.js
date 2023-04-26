@@ -101,4 +101,32 @@ router.delete("/:id", [auth, checkById("id")], async (req, res) => {
   }
 });
 
+// PUT api/posts/found/:id
+// @desc the item in the post is found
+// @access Private
+router.put("/found/:id", [auth, checkById("id")], async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    // Check if the post is already found
+    if (post.found) {
+      return res.status(400).json({ msg: "Lost item already found" });
+    }
+
+    // Check if the user is the owner of the post
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "User not authorized" });
+    }
+
+    post.found = true;
+
+    await post.save();
+
+    return res.json(post);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
