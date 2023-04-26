@@ -1,0 +1,50 @@
+const express = require("express");
+const router = express.Router();
+const { check, validationResult } = require("express-validator");
+const auth = require("../../middleware/auth");
+
+const Post = require("../../models/Post");
+const User = require("../../models/User");
+const checkById = require("../../middleware/checkObjectId");
+
+// @route  POST api/posts
+// @desc   Create a post
+// @access Private
+router.post(
+  "/",
+  auth,
+  check("text", "Text is required").notEmpty(),
+  check("foundedDate", "Founded date is required").notEmpty(),
+  check("foundedDate", "Found date should be a date").isDate(),
+  check("location", "Location is required").notEmpty(),
+  check("found", "Found is required").notEmpty(),
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const user = await User.findById(req.user.id).select("-password"); // Get the user without the password
+
+      const newPost = new Post({
+        text: req.body.text,
+        name: user.name,
+        user: req.user.id,
+        foundedDate: req.body.foundedDate,
+        location: req.body.location,
+        found: req.body.found,
+      });
+
+      const post = await newPost.save(); // Save the post
+
+      res.json(post); // Return the post
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+module.exports = router;

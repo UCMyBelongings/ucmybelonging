@@ -12,9 +12,6 @@ const PostSchema = new mongoose.Schema({
   name: {
     type: String,
   },
-  avatar: {
-    type: String,
-  },
   foundedDate: {
     type: Date,
     required: true,
