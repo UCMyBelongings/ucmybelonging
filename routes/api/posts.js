@@ -138,6 +138,39 @@ router.delete("/:id", [auth, checkById("id")], async (req, res) => {
   }
 });
 
+// DELETE api/posts/comment/:id/:comment_id
+// @desc Delete comment
+// @access Private
+router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    // Get the comment from the post
+    const comment = post.comments.find(
+      (comment) => comment.id === req.params.comment_id
+    );
+    // Make sure comment exists
+    if (!comment) {
+      return res.status(404).json({ msg: "Comment does not exist" });
+    }
+    // Check user
+    if (comment.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "User not authorized" });
+    }
+
+    post.comments = post.comments.filter(
+      ({ id }) => id !== req.params.comment_id
+    ); // Remove the comment from the post
+
+    await post.save();
+
+    return res.json(post.comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 // PUT api/posts/found/:id
 // @desc the item in the post is found
 // @access Private
@@ -156,6 +189,34 @@ router.put("/found/:id", [auth, checkById("id")], async (req, res) => {
     }
 
     post.found = true;
+
+    await post.save();
+
+    return res.json(post);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// PUT api/posts/lost/:id
+// @desc the item in the post is lost
+// @access Private
+router.put("/lost/:id", [auth, checkById("id")], async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    // Check if the post is already lost
+    if (!post.found) {
+      return res.status(400).json({ msg: "Lost item already lost" });
+    }
+
+    // Check if the user is the owner of the post
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "User not authorized" });
+    }
+
+    post.found = false;
 
     await post.save();
 
