@@ -1,135 +1,93 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import {
-  TextField,
-  Button,
-  FormControl,
-  Select,
-  MenuItem,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-} from "@material-ui/core";
+import * as React from 'react';
+import './homepage.css';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    margin: theme.spacing(2),
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    margin: theme.spacing(2),
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-}));
+const theme = createTheme();
 
 function Login() {
-  const classes = useStyles();
-
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [phoneNumber, setPhone] = React.useState("");
-  const [college, setCollege] = React.useState("");
-  const [grade, setGrade] = React.useState("");
-
   const handleSubmit = (event) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget);
     console.log({
-      username,
-      password,
-      phoneNumber,
-      college,
-      grade,
+      email: data.get('email'),
+      password: data.get('password'),
     });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TextField
-        fullWidth
-        id="username"
-        name="username"
-        label="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        margin="normal"
-        variant="outlined"
-      />
-      <TextField
-        fullWidth
-        id="password"
-        name="password"
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        margin="normal"
-        variant="outlined"
-      />
-      <TextField
-        fullWidth
-        id="phone"
-        name="phone"
-        label="Phone"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        margin="normal"
-        variant="outlined"
-      />
-      <FormControl component="fieldset" margin="normal">
-        <FormLabel component="legend">College</FormLabel>
-        <RadioGroup
-          row
-          aria-label="college"
-          name="college"
-          value={college}
-          onChange={(e) => setCollege(e.target.value)}
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
         >
-          <FormControlLabel
-            value="college1"
-            control={<Radio color="primary" />}
-            label="College 1"
-          />
-          <FormControlLabel
-            value="college2"
-            control={<Radio color="primary" />}
-            label="College 2"
-          />
-        </RadioGroup>
-      </FormControl>
-      <FormControl component="fieldset" margin="normal">
-        <FormLabel component="legend">Grade</FormLabel>
-        <Select
-          id="grade"
-          name="grade"
-          value={grade}
-          onChange={(e) => setGrade(e.target.value)}
-          variant="outlined"
-          fullWidth
-        >
-          <MenuItem value="A">A</MenuItem>
-          <MenuItem value="B">B</MenuItem>
-          <MenuItem value="C">C</MenuItem>
-          <MenuItem value="D">D</MenuItem>
-        </Select>
-      </FormControl>
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        fullWidth
-        disabled={!username || !password || !phone || !college || !grade}
-      >
-        Log In
-      </Button>
-    </form>
+          <Typography component="h1" variant="h5">
+            Log in
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              color='success'
+            >Log In</Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
-}
+};
 
 export default Login;

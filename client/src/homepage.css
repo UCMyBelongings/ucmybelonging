@@ -43,3 +43,12 @@
 .navbar a:hover {
   color: #0077b6;
 }
+
+.login-button {
+  background-color: #333;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
