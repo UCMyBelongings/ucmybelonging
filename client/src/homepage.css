@@ -1,27 +1,49 @@
-/* homepage.css */
+@import url("https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap");
 
-.homepage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f9f9f9;
+html {
+  padding-top: 0;
 }
 
-.logo-container {
-  margin-bottom: 2rem;
+body {
+  text-align: center;
+  background-color: #f9faf3;
+}
+
+p {
+  color: #8f8f8f;
+}
+
+.colored-section-1 {
+  background-color: #a9a3a3;
+  height: 100%;
+}
+
+.colored-section-2 {
+  background-color: #93c091;
 }
 
 .title {
   font-size: 2.5rem;
   margin-bottom: 2rem;
+  color: #fff;
+}
+
+#title {
+  color: #fff;
+  text-align: center;
+}
+
+#title .container-fluid {
+  padding: 3% 15% 7%;
 }
 
 .navbar {
   display: flex;
-  justify-content: center;
-  margin-top: 2rem;
+  justify-content: right;
+  padding-right: 2%;
+  overflow: auto;
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  font-weight: 1000;
 }
 
 .navbar ul {
@@ -36,19 +58,21 @@
 
 .navbar a {
   text-decoration: none;
-  color: #333;
+  color: #fff;
   font-size: 1.2rem;
 }
 
 .navbar a:hover {
-  color: #0077b6;
+  color: #a56cad;
 }
 
-.login-button {
-  background-color: #333;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
+.logo {
+  padding-top: 6%;
+  height: 500px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
