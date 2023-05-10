@@ -20,6 +20,9 @@ function Homepage() {
           <li>
             <Link to="/donate">Donate</Link>
           </li>
+          <li>
+            <Link to="/signin">Sign In</Link>
+          </li>
         </ul>
       </nav>
     </div>

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import "./homepage.css";
+import { styled } from "@mui/system";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -11,20 +11,10 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { RadioGroup } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import Radio from "@mui/material/Radio";
 
 const theme = createTheme();
 
-const themefont = createTheme({
-  typography: {
-    fontFamily: "Segoe UI",
-    htmlFontSize: 10,
-  },
-});
-
-function Donate() {
+function Signin() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -59,14 +49,10 @@ function Donate() {
           component={Paper}
           elevation={6}
           square
-          style={{ backgroundColor: "#f5f5f5", textAlign: "center" }}
+          style={{ backgroundColor: "#011110" }}
         >
           <Box>
-            <Typography
-              style={{
-                fontWeight: "bold",
-              }}
-            >
+            <Typography>
               <h1>Sign in</h1>
             </Typography>
             <Box
@@ -74,7 +60,6 @@ function Donate() {
               noValidate
               onSubmit={handleSubmit}
               sx={{ mt: 1 }}
-              style={{ padding: "0 10%" }}
             >
               <TextField
                 margin="normal"
@@ -91,24 +76,15 @@ function Donate() {
                 name="password"
                 label="Password"
                 type="password"
-                style={{ marginBottom: "30px" }}
               />
               <FormControl>
-                <FormLabel
-                  id="demo-radio-buttons-group-label"
-                  style={{ padding: "20px 0" }}
-                >
+                <FormLabel id="demo-radio-buttons-group-label">
                   College
                 </FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="Revelle"
-                  name="radio-buttons-group-college"
-                  style={{
-                    display: "inline-block",
-                    textAlign: "left",
-                    marginLeft: "10px",
-                  }}
+                  name="radio-buttons-group"
                 >
                   <FormControlLabel
                     value="Revelle"
@@ -153,21 +129,11 @@ function Donate() {
                 </RadioGroup>
               </FormControl>
               <FormControl>
-                <FormLabel
-                  id="demo-radio-buttons-group-label"
-                  style={{ padding: "20px 0" }}
-                >
-                  Year
-                </FormLabel>
+                <FormLabel id="demo-radio-buttons-group-label">Year</FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="1st"
-                  name="radio-buttons-group-year"
-                  style={{
-                    display: "inline-block",
-                    textAlign: "left",
-                    marginLeft: "10px",
-                  }}
+                  name="radio-buttons-group"
                 >
                   <FormControlLabel
                     value="1st"
@@ -200,9 +166,9 @@ function Donate() {
                 Sign In
               </Button>
             </Box>
-            <Grid>
-              <Link to="/login">{"Already have account? Log in"}</Link>
-            </Grid>
+            <Gird>
+              <Link to="/login">{"login"}</Link>
+            </Gird>
           </Box>
         </Grid>
       </Grid>
@@ -210,4 +176,4 @@ function Donate() {
   );
 }
 
-export default Donate;
+export default Signin;
